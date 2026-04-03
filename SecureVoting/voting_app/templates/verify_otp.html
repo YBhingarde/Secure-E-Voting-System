@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 450px;">
+    <h2 style="font-family: 'Montserrat', sans-serif; color: #00d2ff; text-shadow: var(--text-glow); margin-bottom: 10px;">
+        🔐 OTP Verification
+    </h2>
+    <p style="color: #ccc; font-size: 14px; margin-bottom: 30px;">
+        A 6-digit verification code has been sent to your registered email.
+    </p>
+
+    {% if success or request.GET.success %}
+    <div style="background: rgba(40, 167, 69, 0.15); border: 1px solid #28a745; color: #28a745; padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 14px; font-weight: 600;">
+        {{ success }}{{ request.GET.success }}
+    </div>
+    {% endif %}
+
+    {% if error or request.GET.error %}
+    <div style="background: rgba(255, 77, 77, 0.15); border: 1px solid #ff4d4d; color: #ff4d4d; padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 14px; font-weight: 600;">
+        {{ error }}{{ request.GET.error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" style="text-align: left;">
+        {% csrf_token %}
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; color: #aaa; font-size: 13px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">
+                Enter 6-Digit OTP
+            </label>
+            <input type="text" name="otp" placeholder="· · · · · ·" maxlength="6" required 
+                style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(0,210,255,0.3); border-radius: 12px; padding: 15px; color: white; font-size: 20px; text-align: center; letter-spacing: 8px; outline: none; transition: 0.3s; box-sizing: border-box;">
+        </div>
+
+        <button type="submit" 
+            style="width: 100%; background: linear-gradient(45deg, #00d2ff, #3a7bd5); border: none; border-radius: 12px; padding: 15px; color: white; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);">
+            Verify & Login 🚀
+        </button>
+    </form>
+
+    <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+        <p style="color: #888; font-size: 14px; margin-bottom: 5px;">Didn't receive the code?</p>
+        <a href="{% url 'resend_otp' %}" id="resend-btn" 
+            style="color: #00d2ff; text-decoration: none; font-weight: 600; font-size: 15px; transition: 0.3s;">
+            Resend OTP
+        </a>
+        <p id="timer-text" style="color: #555; font-size: 12px; margin-top: 8px;">
+            Wait <span id="timer-sec">30</span> seconds to resend
+        </p>
+    </div>
+</div>
+
+<script>
+    // Resend OTP Timer Logic
+    let timeLeft = 30;
+    const resendBtn = document.getElementById('resend-btn');
+    const timerText = document.getElementById('timer-text');
+    const timerSec = document.getElementById('timer-sec');
+
+    // Initial State: Disable button
+    resendBtn.style.pointerEvents = "none";
+    resendBtn.style.opacity = "0.5";
+
+    let countdown = setInterval(function() {
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            resendBtn.style.pointerEvents = "auto";
+            resendBtn.style.opacity = "1";
+            resendBtn.style.color = "#00d2ff";
+            timerText.style.display = "none";
+        } else {
+            timerSec.innerHTML = timeLeft;
+            timeLeft -= 1;
+        }
+    }, 1000);
+</script>
+
+<style>
+    input:focus {
+        border-color: #00d2ff !important;
+        box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+        background: rgba(255,255,255,0.08) !important;
+    }
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 210, 255, 0.4);
+    }
+</style>
+{% endblock %}

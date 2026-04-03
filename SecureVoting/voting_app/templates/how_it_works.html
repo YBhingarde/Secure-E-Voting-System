@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .works-container {
+        text-align: left;
+        padding: 20px;
+    }
+
+    .works-title {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 36px;
+        color: white;
+        margin-bottom: 40px;
+        text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    }
+
+    .works-title span { color: #00d2ff; }
+
+    /* Vertical Timeline Design */
+    .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        background: rgba(0, 210, 255, 0.3);
+        top: 0; bottom: 0;
+        left: 30px;
+        border-radius: 10px;
+    }
+
+    .timeline-step {
+        position: relative;
+        margin-bottom: 30px;
+        padding-left: 80px;
+        animation: slideInRight 0.8s ease-out forwards;
+        opacity: 0;
+    }
+
+    .timeline-step:nth-child(1) { animation-delay: 0.2s; }
+    .timeline-step:nth-child(2) { animation-delay: 0.4s; }
+    .timeline-step:nth-child(3) { animation-delay: 0.6s; }
+    .timeline-step:nth-child(4) { animation-delay: 0.8s; }
+
+    @keyframes slideInRight {
+        0% { transform: translateX(50px); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+    }
+
+    .step-number {
+        position: absolute;
+        left: 10px;
+        top: 0;
+        width: 45px;
+        height: 45px;
+        background: #0f172a;
+        border: 3px solid #00d2ff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #00d2ff;
+        z-index: 1;
+        box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+    }
+
+    .step-content {
+        background: rgba(0, 210, 255, 0.05);
+        border: 1px solid rgba(0, 210, 255, 0.2);
+        padding: 25px;
+        border-radius: 15px;
+        transition: 0.3s;
+    }
+
+    .step-content:hover {
+        background: rgba(0, 210, 255, 0.15);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 210, 255, 0.2);
+    }
+
+    .step-content h3 { margin: 0 0 10px 0; color: white; font-size: 20px; }
+    .step-content p { margin: 0; color: #ccc; font-size: 15px; line-height: 1.6; }
+</style>
+
+<div class="glass-card" style="max-width: 900px; padding: 40px;">
+    <h2 class="works-title">How <span>SecureVote</span> Works</h2>
+    
+    <div class="timeline">
+        
+        <div class="timeline-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h3>📝 Voter Registration</h3>
+                <p>Citizens must register using their valid details. The system creates a secure profile linked directly to your authentic Email ID and Phone Number.</p>
+            </div>
+        </div>
+
+        <div class="timeline-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h3>🔐 OTP Verification (2FA)</h3>
+                <p>To access the voting dashboard, users must log in and verify their identity via a 6-digit dynamic OTP sent directly to their registered email.</p>
+            </div>
+        </div>
+
+        <div class="timeline-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h3>🆔 Aadhaar & Live Face Scan</h3>
+                <p>Before casting a vote, the user enters their 12-digit Aadhaar. The system then activates the webcam to capture a Live Face Scan. An AI algorithm generates a unique face-hash to prevent duplicate voting.</p>
+            </div>
+        </div>
+
+        <div class="timeline-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h3>✅ Vote Recorded Securely</h3>
+                <p>Once identity is verified against existing records, the vote is permanently encrypted and recorded in the database. A single user can never vote twice!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+    <a href="{% url 'register' %}">
+        <button style="margin-top: 20px; padding: 12px 30px; background: #00d2ff; color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer;">Get Started Now ➡️</button>
+    </a>
+</div>
+{% endblock %}

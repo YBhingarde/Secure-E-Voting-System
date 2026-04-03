@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .home-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Feature Boxes */
+    .feature-grid {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin: 25px 0;
+        flex-wrap: wrap;
+    }
+
+    .feature-box {
+        background: rgba(0, 210, 255, 0.05);
+        border: 1px solid rgba(0, 210, 255, 0.2);
+        padding: 25px 20px;
+        border-radius: 20px;
+        width: 170px;
+        text-align: center;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .feature-box:hover {
+        transform: translateY(-12px) scale(1.05);
+        background: rgba(0, 210, 255, 0.15);
+        box-shadow: 0 15px 25px rgba(0, 210, 255, 0.2);
+        border-color: #00d2ff;
+    }
+
+    .feature-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+        display: block;
+        filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.5));
+    }
+
+    .feature-title {
+        color: white;
+        font-weight: 600;
+        font-size: 15px;
+        margin: 0;
+    }
+
+    /* Buttons */
+    .cta-buttons {
+        display: flex;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .btn-tagada {
+        padding: 15px 40px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .btn-login {
+        background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+        color: white;
+        box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
+    }
+
+    .btn-login:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 210, 255, 0.6);
+    }
+
+    .btn-register {
+        background: transparent;
+        color: #00d2ff;
+        border: 2px solid #00d2ff;
+    }
+
+    .btn-register:hover {
+        background: rgba(0, 210, 255, 0.1);
+        transform: translateY(-5px);
+    }
+</style>
+
+<div class="glass-card" style="max-width: 900px;">
+    <div class="home-container">
+        
+        <h1 style="font-family: 'Montserrat', sans-serif; font-size: 42px; margin: 0; color: white; text-shadow: 0 0 10px rgba(255,255,255,0.3);">
+            <span style="color: #00d2ff; text-shadow: 0 0 15px rgba(0, 210, 255, 0.6);">Secure E-Voting</span> System
+        </h1>
+        <p style="color: #ccc; font-size: 16px; margin: 10px 0 0 0; max-width: 650px; line-height: 1.6;">
+            A highly secure, Multi-Factor Authentication platform ensuring 100% genuine votes through Real-Time Face Recognition and Aadhaar Verification.
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-box">
+                <span class="feature-icon">📸</span>
+                <p class="feature-title">Live Face Scan</p>
+            </div>
+            <div class="feature-box">
+                <span class="feature-icon">🆔</span>
+                <p class="feature-title">Aadhaar Auth</p>
+            </div>
+            <div class="feature-box">
+                <span class="feature-icon">🔐</span>
+                <p class="feature-title">Email OTP</p>
+            </div>
+        </div>
+
+        <div class="cta-buttons">
+            <a href="{% url 'login' %}" style="text-decoration: none;">
+                <button class="btn-tagada btn-login">Login to Vote</button>
+            </a>
+            <a href="{% url 'register' %}" style="text-decoration: none;">
+                <button class="btn-tagada btn-register">New Registration</button>
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

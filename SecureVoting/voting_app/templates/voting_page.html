@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="glass-card" style="max-width: 450px;">
+    <h2 style="color: #00d2ff;">Final Verification</h2>
+    <p style="color: #ccc; font-size: 14px;">Voting for: <b style="color: white;">{{ candidate.name }} ({{ candidate.party }})</b></p>
+
+    {% if errors %}
+        <div style="background: rgba(255, 0, 0, 0.2); color: #ff4d4d; padding: 10px; border-radius: 5px; text-align: left; margin-bottom: 15px; font-size: 14px;">
+            <ul style="margin: 0; padding-left: 20px;">
+                {% for error in errors %} <li>{{ error }}</li> {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form id="votingForm" method="POST">
+        {% csrf_token %}
+        <input type="text" name="aadhaar" required pattern="\d{12}" maxlength="12" placeholder="12-Digit Aadhaar Number" autocomplete="off" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 5px; background: rgba(255,255,255,0.9); box-sizing: border-box;">
+        
+        <input type="text" name="phone" required pattern="\d{10}" maxlength="10" placeholder="Registered Phone Number" autocomplete="off" style="width: 100%; padding: 10px; margin-bottom: 15px; border: none; border-radius: 5px; background: rgba(255,255,255,0.9); box-sizing: border-box;">
+
+        <div style="border: 2px dashed #00d2ff; padding: 10px; border-radius: 10px; margin-bottom: 15px; background: rgba(0,0,0,0.3);">
+            <p style="margin: 0 0 10px 0; color: #ff4b2b; font-weight: bold; font-size: 14px;">Live Face Scan Required</p>
+            <video id="webcam" autoplay playsinline style="width: 100%; border-radius: 5px; background: black;"></video>
+            <canvas id="canvas" style="display:none;"></canvas>
+        </div>
+
+        <input type="hidden" name="photoData" id="photoData">
+
+        <button type="button" onclick="captureAndSubmit()" style="width: 100%; padding: 12px; font-size: 16px; font-weight: bold; background: #28a745; color: white; border: none; border-radius: 50px; cursor: pointer;">
+            📸 Scan Face & Submit Vote
+        </button>
+    </form>
+</div>
+
+<script>
+    const video = document.getElementById('webcam');
+    const canvas = document.getElementById('canvas');
+    const photoDataInput = document.getElementById('photoData');
+    const form = document.getElementById('votingForm');
+
+    async function startCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+        } catch (err) { alert("Please allow camera access!"); }
+    }
+    window.onload = startCamera;
+
+    function captureAndSubmit() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        photoDataInput.value = canvas.toDataURL('image/png');
+        
+        if(document.getElementsByName("aadhaar")[0].value === "" || document.getElementsByName("phone")[0].value === "") {
+            alert("Please fill Aadhaar and Phone details first!");
+        } else {
+            form.submit();
+        }
+    }
+</script>
+{% endblock %}

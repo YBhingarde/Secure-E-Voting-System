@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="width: 100%; max-width: 800px; text-align: center;">
+    <h2 style="color: #00d2ff; margin-bottom: 30px;">Select Your Candidate</h2>
+    
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+        {% for c in candidates %}
+            <div class="glass-card" style="width: 250px; padding: 20px; text-align: center;">
+                
+                {% if c.symbol %}
+                    <img src="{{ c.symbol.url }}" alt="{{ c.name }}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid #00d2ff; background: white;">
+                {% else %}
+                    <div style="width: 100px; height: 100px; border-radius: 50%; background: #444; margin: 0 auto 15px auto; display: flex; justify-content: center; align-items: center; border: 3px solid #00d2ff; font-size: 40px;">👤</div>
+                {% endif %}
+
+                <h3 style="color: white; margin-top: 0;">{{ c.name }}</h3>
+                <p style="color: #00d2ff; font-weight: bold; margin-bottom: 20px;">{{ c.party }}</p>
+                
+                <a href="{% url 'vote_verify' c.id %}" style="text-decoration: none;">
+                    <button style="width: 100%; padding: 10px; font-weight: bold; background: #00d2ff; color: #000; border: none; border-radius: 5px; cursor: pointer;">
+                        Vote
+                    </button>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

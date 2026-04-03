@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="glass-card" style="max-width: 450px; text-align: center;">
+    <h1 style="font-size: 50px; margin: 0;">🎉</h1>
+    <h2 style="color: #28a745; margin-bottom: 10px;">Vote Submitted Successfully!</h2>
+    <p style="color: #ccc; margin-bottom: 30px;">Your vote has been securely recorded on the server using Multi-Factor Authentication.</p>
+    
+    <a href="{% url 'dashboard' %}" style="text-decoration: none;">
+        <button style="padding: 12px 30px; font-size: 16px; font-weight: bold; background: #00d2ff; color: #000; border: none; border-radius: 50px; cursor: pointer;">
+            Return to Dashboard
+        </button>
+    </a>
+</div>
+{% endblock %}

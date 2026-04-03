@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* look for form box */
+    .glass-
+    card input {
+        width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px;
+        border: none; border-radius: 5px; background: rgba(255, 255, 255, 0.8);
+        font-family: 'Poppins', sans-serif;
+    }
+    .glass-card label { color: #00d2ff; font-weight: 600; float: left; }
+</style>
+
+<div class="glass-card" style="max-width: 400px;">
+    <h2 style="color: #00d2ff; margin-bottom: 20px;">Voter Registration</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="width: 100%; padding: 12px; font-size: 16px; font-weight: bold; background: #00d2ff; color: #000; border: none; border-radius: 50px; cursor: pointer; margin-top: 10px;">
+            Register Now
+        </button>
+    </form>
+    <p style="margin-top: 20px; font-size: 14px;">
+        Already have an account? <a href="{% url 'login' %}" style="color: #00d2ff;">Login here</a>
+    </p>
+</div>
+{% endblock %}

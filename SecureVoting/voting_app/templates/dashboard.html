@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="glass-card" style="max-width: 500px;">
+    <h2 style="color: white; margin-bottom: 5px;">Welcome, <span style="color: #00d2ff;">{{ user.first_name }} {{ user.last_name }}</span></h2>
+    <p style="color: #aaa; margin-bottom: 30px;">Your Identity is Verified via Email OTP.</p>
+    
+    {% if user.has_voted %}
+        <div style="background: rgba(40, 167, 69, 0.2); border: 1px solid #28a745; padding: 20px; border-radius: 10px;">
+            <h3 style="color: #28a745; margin: 0;">✅ You have successfully cast your vote!</h3>
+            <p style="font-size: 14px; color: #ccc; margin-top: 10px;">Thank you for participating in the Secure E-Voting process.</p>
+        </div>
+    {% else %}
+        <a href="{% url 'candidates_list' %}" style="text-decoration: none;">
+            <button style="width: 100%; padding: 15px; font-size: 18px; font-weight: bold; background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);">
+                Proceed to Voting Panel ➡️
+            </button>
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

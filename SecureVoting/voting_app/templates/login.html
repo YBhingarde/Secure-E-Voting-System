@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="glass-card" style="max-width: 350px;">
+    <h2 style="color: #00d2ff; margin-bottom: 20px;">Secure Login</h2>
+    
+    {% if error %}
+        <p style="background: rgba(255, 0, 0, 0.2); color: #ff4d4d; padding: 10px; border-radius: 5px;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div style="text-align: left; margin-bottom: 15px;">
+            <label style="color: #00d2ff; font-weight: 600;">Username</label>
+            <input type="text" name="username" required style="width: 100%; padding: 10px; border: none; border-radius: 5px; background: rgba(255, 255, 255, 0.9); margin-top: 5px; box-sizing: border-box;">
+        </div>
+        <div style="text-align: left; margin-bottom: 25px;">
+            <label style="color: #00d2ff; font-weight: 600;">Password</label>
+            <input type="password" name="password" required style="width: 100%; padding: 10px; border: none; border-radius: 5px; background: rgba(255, 255, 255, 0.9); margin-top: 5px; box-sizing: border-box;">
+        </div>
+        <button type="submit" style="width: 100%; padding: 12px; font-size: 16px; font-weight: bold; background: #00d2ff; color: #000; border: none; border-radius: 50px; cursor: pointer;">
+            Login & Get OTP
+        </button>
+    </form>
+</div>
+{% endblock %}
